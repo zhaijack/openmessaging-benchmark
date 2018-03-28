@@ -175,11 +175,19 @@
         src: "templates/client.conf"
         dest: "/opt/pulsar/conf/client.conf"
     - file: path=/opt/benchmark state=absent
-    - name: Copy benchmark code
+    - file: path=/opt/benchmark state=directory
+    - name: Download benchmark code package
       unarchive:
-        src: ../../package/target/openmessaging-benchmark-0.0.1-SNAPSHOT-bin.tar.gz
-        dest: /opt
-    - shell: mv /opt/openmessaging-benchmark-0.0.1-SNAPSHOT /opt/benchmark
+        src: "https://s3-us-west-1.amazonaws.com/streamlio-test1/jia/openmessaging-benchmark-0.0.1-SNAPSHOT-bin.tar.gz"
+        remote_src: yes
+        dest: /opt/benchmark
+        extra_opts: ["--strip-components=1"]
+
+    #- name: Copy benchmark code
+    #  unarchive:
+    #    src: ../../package/target/openmessaging-benchmark-0.0.1-SNAPSHOT-bin.tar.gz
+    #    dest: /opt
+    #- shell: mv /opt/openmessaging-benchmark-0.0.1-SNAPSHOT /opt/benchmark
 
     - template:
         src: "templates/workers.yaml"
