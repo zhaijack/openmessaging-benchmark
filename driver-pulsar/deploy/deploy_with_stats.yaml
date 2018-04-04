@@ -100,7 +100,7 @@
         src: "templates/zoo.cfg"
         dest: "/opt/pulsar/conf/zookeeper.conf"
     - template:
-        src: templates/myid
+        src: "templates/myid"
         dest: "/opt/pulsar/data/zookeeper/myid"
     - template:
         src: "templates/zookeeper.service"
@@ -183,12 +183,6 @@
         dest: /opt/benchmark
         extra_opts: ["--strip-components=1"]
 
-    #- name: Copy benchmark code
-    #  unarchive:
-    #    src: ../../package/target/openmessaging-benchmark-0.0.1-SNAPSHOT-bin.tar.gz
-    #    dest: /opt
-    #- shell: mv /opt/openmessaging-benchmark-0.0.1-SNAPSHOT /opt/benchmark
-
     - template:
         src: "templates/workers.yaml"
         dest: "/opt/benchmark/workers.yaml"
@@ -212,7 +206,7 @@
       lineinfile:
          dest: /opt/benchmark/bin/benchmark-worker
          regexp: '^JVM_MEM='
-         line: 'JVM_MEM="-Xms12G -Xmx12G -XX:+UseG1GC -XX:MaxGCPauseMillis=10 -XX:+ParallelRefProcEnabled -XX:+UnlockExperimentalVMOptions -XX:+AggressiveOpts -XX:+DoEscapeAnalysis -XX:ParallelGCThreads=32 -XX:ConcGCThreads=32 -XX:G1NewSizePercent=50 -XX:+DisableExplicitGC -XX:-ResizePLAB -XX:+PerfDisableSharedMem -XX:+AlwaysPreTouch -XX:-UseBiasedLocking"'
+         line: 'JVM_MEM="-Xms6G -Xmx6G -XX:+UseG1GC -XX:MaxGCPauseMillis=10 -XX:+HeapDumpOnOutOfMemoryError -XX:HeapDumpPath=/home/ec2-user -XX:+ParallelRefProcEnabled -XX:+UnlockExperimentalVMOptions -XX:+AggressiveOpts -XX:+DoEscapeAnalysis -XX:ParallelGCThreads=32 -XX:ConcGCThreads=32 -XX:G1NewSizePercent=50 -XX:+DisableExplicitGC -XX:-ResizePLAB -XX:+PerfDisableSharedMem -XX:+AlwaysPreTouch -XX:-UseBiasedLocking"'
     - name: Configure memory
       lineinfile:
          dest: /opt/benchmark/bin/benchmark
