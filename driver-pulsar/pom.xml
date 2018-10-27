@@ -29,8 +29,8 @@
 	</parent>
 
 	<artifactId>driver-pulsar</artifactId>
-	<properties>	
-		<pulsar.version>2.1.0-incubating</pulsar.version>
+	<properties>
+		<pulsar.version>2.2.0</pulsar.version>
 	</properties>
 
 	<dependencies>
